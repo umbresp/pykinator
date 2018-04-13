@@ -9,10 +9,12 @@ I made this after seeing a bunch of NodeJS Akinator APIs but none for python.
 # Newbies
 _(assuming python 3.x)_
 
-`python -m venv venv`
-`source venv/bin/activate`
-`pip install -r requirements.txt`
-`pip install -e .`
+```
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+pip install -e .
+```
 
 # Usage
 
@@ -42,6 +44,6 @@ The contents of this repository are covered under the [MIT License](https://gith
 
 # AUTHOR
 
-Originally created by (umbresp)[https://github.com/umbresp]
+Originally created by [umbresp](https://github.com/umbresp)
 
 Additional Functionality humbly contributed by [Steve Wells](https://www.stephendwells.com/)
