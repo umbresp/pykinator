@@ -3,10 +3,11 @@
 import requests
 
 
-class PykinatorBot(object):
+class Pykinator(object):
 
     language = 'en'
     server = 1
+    no_of_questions = 10
 
     url_template = { # {}{} translate to language and server
       'session': ("http://api-{}{}.akinator.com/ws/new_session?partner=1"
@@ -32,16 +33,25 @@ class PykinatorBot(object):
     guessed_wrong_once = False
 
     game_over = False
-    can_guess = False
+    guessing = False
 
 
-    # language (i.e. "en","fr") server (1,2...) just a suggestion.
-    def __init__(self, language=None, server=None):
+    """
+      inputs:
+        * language (i.e. "en","fr")
+        * server (1,2...) just a suggestion.
+        * no_of_questions how many questions to ask before we make a guess
+    """
+    def __init__(self, language=None, server=None, no_of_questions=None):
 
         if language is not None:
             self.language = language
+
         if server is not None:
             self.server = server
+
+        if no_of_questions is not None:
+            self.no_of_questions = int(no_of_questions)
 
 
     def init(self):
@@ -104,15 +114,15 @@ class PykinatorBot(object):
         except ValueError:
             raise("something went wrong fetching the session data")
 
-        can_guess = False
+        self.guessing = False
 
         params = data['parameters']
         if 'step_information' in params:
             params = params['step_information']
 
         steps = int(params['step']) + 1
-        if steps > 10 and not self.guessed_wrong_once:
-            self.can_guess = True
+        if steps > self.no_of_questions and not self.guessed_wrong_once:
+            self.guessing = True
             return self.guess()
 
         return (
@@ -181,45 +191,50 @@ class PykinatorBot(object):
 
             element = element()
 
-            #name, desc = [element[x] for x in ['name','description']]
-            name = element['name']
-            desc = element['description']
+            name, desc = [element[x] for x in ['name','description']]
 
-            #return "If this your character? [yes/no]\n{}\n{}\n".format(
-            #  [element[x] for x in ['name','description']])
-            return "If this your character? [yes/no]\n{}\n{}\n".format(
+            return "Is this your character? [yes/no]\n{}\n{}\n".format(
               name, desc)
         elif answer is not None:
-            self.can_guess = False
+            self.guessing = False
             answer = answer.lower()
             if answer in ["yes","y"]:
                 data = self.session['guess'].json()
                 params['element'] = element()['id']
                 requests.get(self.url['choice'], params)
                 self.game_over = True
-                return "I guessed right! Thanks for playing with me."
+                return "I guessed right! Thanks for playing."
             elif answer in ["no", "n"]:
                 params['forward_answer'] = self.ans_to_string(answer)
                 requests.get(self.url['exclusion'], params=params)
+                self.guessed_wrong_once = True
+                self.session['guess'] = None
                 return "Let's continue..."
-            else:
-                return
+
+        return "I have no guesses to give..."
 
 
 if __name__ == "__main__":
 
-    pkb = PykinatorBot(server=2)
+    pk = Pykinator(server=2)
 
-    initial_question = pkb.start()
-
-    print(initial_question)
+    print(self.start())
     response = input("> ")
 
-    while (not pkb.game_over):
-        if pkb.can_guess:
-            print("guessing: ", response)
-            print(pkb.guess(response))
+    while (not self.game_over):
+        if response in ["quit","exit","q"]:
+            print("goodbye.")
+            sys.exit()
+
+        if response in ["guess", "done"]:
+            self.guessing = True
+            print(self.guess())
+            response = input("> ")
             continue
 
-        print(pkb.answer(response))
+        if self.guessing:
+            print(self.guess(response))
+            continue
+        
+        print(self.answer(response))
         response = input("> ")
