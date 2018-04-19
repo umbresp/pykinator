@@ -6,7 +6,7 @@ ANSWER_URL = "http://api-en4.akinator.com/ws/answer"
 GET_GUESS_URL = "http://api-en4.akinator.com/ws/list"
 CHOICE_URL = "http://api-en4.akinator.com/ws/choice"
 EXCLUSION_URL = "http://api-en4.akinator.com/ws/exclusion"
-GLB_URL = "https://pastebin.com/PaJAzQEB"
+GLB_URL = "https://pastebin.com/gTua3dg2"
 
 
 def ans_to_strint(ans: str):
