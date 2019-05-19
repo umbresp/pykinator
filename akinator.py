@@ -1,11 +1,14 @@
 import requests
 
+# Somebody told me that the link has changed, but I'm not
+# really maintaining this anymore, so here is something that
+# I think should fix it.
 
-NEW_SESSION_URL = "http://api-en4.akinator.com/ws/new_session?partner=1"
-ANSWER_URL = "http://api-en4.akinator.com/ws/answer"
-GET_GUESS_URL = "http://api-en4.akinator.com/ws/list"
-CHOICE_URL = "http://api-en4.akinator.com/ws/choice"
-EXCLUSION_URL = "http://api-en4.akinator.com/ws/exclusion"
+NEW_SESSION_URL = "https://srv2.akinator.com:9157/ws/new_session?partner=1"
+ANSWER_URL = "https://srv2.akinator.com:9157/ws/answer"
+GET_GUESS_URL = "https://srv2.akinator.com:9157/ws/list"
+CHOICE_URL = "https://srv2.akinator.com:9157/ws/choice"
+EXCLUSION_URL = "https://srv2.akinator.com:9157/ws/exclusion"
 GLB_URL = "https://pastebin.com/gTua3dg2"
 
 
