@@ -4,11 +4,11 @@ import requests
 # really maintaining this anymore, so here is something that
 # I think should fix it.
 
-NEW_SESSION_URL = "https://srv2.akinator.com:9157/ws/new_session?partner=1"
-ANSWER_URL = "https://srv2.akinator.com:9157/ws/answer"
-GET_GUESS_URL = "https://srv2.akinator.com:9157/ws/list"
-CHOICE_URL = "https://srv2.akinator.com:9157/ws/choice"
-EXCLUSION_URL = "https://srv2.akinator.com:9157/ws/exclusion"
+NEW_SESSION_URL = "https://srv2.akinator.com:9157/ws/new_session?constraint=ETAT<>'AV'&partner=1"
+ANSWER_URL = "https://srv2.akinator.com:9157/ws/answer?constraint=ETAT<>'AV'"
+GET_GUESS_URL = "https://srv2.akinator.com:9157/ws/list?constraint=ETAT<>'AV'"
+CHOICE_URL = "https://srv2.akinator.com:9157/ws/choice?constraint=ETAT<>'AV'"
+EXCLUSION_URL = "https://srv2.akinator.com:9157/ws/exclusion?constraint=ETAT<>'AV'"
 GLB_URL = "https://pastebin.com/gTua3dg2"
 
 
